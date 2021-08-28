@@ -1,0 +1,235 @@
+# discourse-service
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    b8634e38-7472-43be-9958-54e484af7d36:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': 60
+      z: 1
+      embeds: []
+      isassociatedwith:
+        - 7d49a618-4dcb-46d7-be99-83832e3312ae
+      dependson:
+        - fa008fc4-bad0-4627-929b-d269cf768479
+    7d49a618-4dcb-46d7-be99-83832e3312ae:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': -40
+      z: 1
+      embeds: []
+    fa008fc4-bad0-4627-929b-d269cf768479:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': 170
+      z: 1
+      embeds: []
+      isassociatedwith:
+        - 90bd3961-ddac-4d60-ad1f-1d87d7b616c7
+      dependson:
+        - b8634e38-7472-43be-9958-54e484af7d36
+    9890f6a2-56d3-4cbf-96a8-a41e84fea3ce:
+      size:
+        width: 120
+        height: 110
+      position:
+        x: 490
+        'y': 40
+      z: 1
+      embeds: []
+    5e067f77-b769-4fc8-8bb2-96ad0942b0ce:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 220
+        'y': 60
+      z: 1
+      embeds: []
+      isassociatedwith:
+        - b8634e38-7472-43be-9958-54e484af7d36
+    601ea5f1-bc88-4a7a-93b4-84148bd7713b:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 350
+        'y': 60
+      z: 1
+      embeds: []
+    90bd3961-ddac-4d60-ad1f-1d87d7b616c7:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -60
+        'y': 170
+      z: 0
+      embeds: []
+      dependson:
+        - 7eb40291-f166-423c-863d-74b9c1782a9f
+        - 2252f7c1-29bb-4834-81ba-c56871981022
+    b2fdfe4b-e62f-4b26-8d81-bb00752aad34:
+      source:
+        id: fa008fc4-bad0-4627-929b-d269cf768479
+      target:
+        id: b8634e38-7472-43be-9958-54e484af7d36
+      z: 1
+    00bccac6-2e8c-4f3d-8c13-f15c6fb01fe5:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -60
+        'y': 60
+      z: 0
+      embeds: []
+    b9ff78a3-4f43-40f5-bf91-ac8d58fe4b0e:
+      source:
+        id: fa008fc4-bad0-4627-929b-d269cf768479
+        selector: 'g:nth-child(1) g:nth-child(4) g:nth-child(4) circle:nth-child(1)     '
+        port: 'AWS::DependencyLink-*'
+      target:
+        id: b8634e38-7472-43be-9958-54e484af7d36
+      z: 12
+    11872ba2-70c2-4c97-bfa6-bef625541b01:
+      source:
+        id: fa008fc4-bad0-4627-929b-d269cf768479
+        selector: 'g:nth-child(1) g:nth-child(4) g:nth-child(4) circle:nth-child(1)     '
+        port: 'AWS::DependencyLink-*'
+      target:
+        id: b8634e38-7472-43be-9958-54e484af7d36
+      z: 12
+    4d9dd4c6-a589-4619-a90d-cea56af74c90:
+      source:
+        id: b8634e38-7472-43be-9958-54e484af7d36
+      target:
+        id: fa008fc4-bad0-4627-929b-d269cf768479
+      z: 11
+Resources:
+  ec2instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: us-east-2a
+      KeyName: instance-ec2-key
+      ImageId: ami-085a48e1feffad8f7
+      InstanceType: t3a.small
+      SecurityGroupIds:
+        - !Ref securitygroup
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: b8634e38-7472-43be-9958-54e484af7d36
+  ec2volume:
+    Type: 'AWS::EC2::Volume'
+    Properties:
+      AvailabilityZone: us-east-2a
+      Encrypted: true
+      KmsKeyId: !Ref KMSK3NDLG
+      Size: 20
+      VolumeType: gp2
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: fa008fc4-bad0-4627-929b-d269cf768479
+  securitygroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupName: security-group
+      GroupDescription: discourse-server rules
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 25
+          ToPort: 25
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 7d49a618-4dcb-46d7-be99-83832e3312ae
+  devRecord:
+    Properties:
+      HostedZoneId: !Ref hostedZone
+      Name: discourse.ussbrahe.org
+      ResourceRecords:
+        - !Ref eip
+      TTL: 300
+      Type: A
+    Type: 'AWS::Route53::RecordSet'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 601ea5f1-bc88-4a7a-93b4-84148bd7713b
+  eip:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref ec2instance
+    Type: 'AWS::EC2::EIP'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 5e067f77-b769-4fc8-8bb2-96ad0942b0ce
+  hostedZone:
+    Properties:
+      Name: discourse.ussbrahe.org
+    Type: 'AWS::Route53::HostedZone'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9890f6a2-56d3-4cbf-96a8-a41e84fea3ce
+  KMSK3NDLG:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Enabled: true
+      KeyPolicy:
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 90bd3961-ddac-4d60-ad1f-1d87d7b616c7
+  EC2VA4VGS8:
+    Type: 'AWS::EC2::VolumeAttachment'
+    Properties:
+      Device: /dev/xvdh
+      InstanceId: !Ref ec2instance
+      VolumeId: !Ref ec2volume
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: b2fdfe4b-e62f-4b26-8d81-bb00752aad34
+  S3B2621V:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+              KMSMasterKeyID: !GetAtt
+                - KMSK3NDLG
+                - Arn
+      BucketName: uss-brahe-backups
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 00bccac6-2e8c-4f3d-8c13-f15c6fb01fe5
