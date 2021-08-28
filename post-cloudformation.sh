@@ -1,10 +1,4 @@
 #!/bin/bash
-
-if [ $EUID -ne 0 ]; then
-    echo "$0 is not running as root. Try using sudo."
-    exit 2
-fi
-
 apt install docker git -y
 mkdir -p /mnt/xvdh
 mkfs -t ext4 /dev/nvme1n1
