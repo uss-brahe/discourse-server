@@ -1,5 +1,17 @@
 # discourse-service
 AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  devRecordName:
+    Type: String
+    Description: sets a devRecord name
+  ec2KeyPairName:
+    Type: String
+    Default: instance-ec2-key
+    Description: Name of the EC2 instance Key Pair which is required for deployment
+  ec2ImageId:
+    Type: String
+    Default: ami-085a48e1feffad8f7
+    Description: the underlying ami to launch the EC2 instance with
 Metadata:
   'AWS::CloudFormation::Designer':
     b8634e38-7472-43be-9958-54e484af7d36:
@@ -120,8 +132,10 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       AvailabilityZone: us-east-2a
-      KeyName: instance-ec2-key
-      ImageId: ami-085a48e1feffad8f7
+      KeyName:
+        Ref: ec2KeyPairName
+      ImageId:
+        Ref: ec2ImageId
       InstanceType: t3a.small
       SecurityGroupIds:
         - !Ref securitygroup
@@ -167,7 +181,8 @@ Resources:
   devRecord:
     Properties:
       HostedZoneId: !Ref hostedZone
-      Name: discourse.ussbrahe.org
+      Name:
+        Ref: devRecordName
       ResourceRecords:
         - !Ref eip
       TTL: 300
