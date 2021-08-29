@@ -7,7 +7,7 @@ Parameters:
   ec2KeyPairName:
     Type: String
     Default: instance-ec2-key
-    Description: Name of the EC2 instance Key Pair which is required for deployment
+    Description: name of the EC2 instance Key Pair which is required for deployment
   ec2ImageId:
     Type: String
     Default: ami-085a48e1feffad8f7
@@ -153,7 +153,7 @@ Resources:
       AvailabilityZone: us-east-2a
       Encrypted: true
       KmsKeyId: !Ref KMSK3NDLG
-      Size: 20
+      Size: 30
       VolumeType: gp2
     Metadata:
       'AWS::CloudFormation::Designer':
