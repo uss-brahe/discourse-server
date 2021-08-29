@@ -19,10 +19,11 @@ chmod 600 /mnt/xvdh/swap.1
 /sbin/swapon /mnt/xvdh/swap.1
 
 # move docker (and the container) to the larger volume
+
 systemctl stop docker
-mkdir -v /mnt/xvdh/lib/
-mv -v /lib/docker /mnt/xvdh/lib/
-ln -s - v /mnt/xvdh/lib/docker /var/lib/docker
+mkdir -v /mnt/xvdh/var/lib
+mv /var/lib/docker /mnt/xvdh/var/lib/
+ln -s -v /mnt/xvdh/var/lib/docker/ /var/lib/docker
 systemctl start docker
 
 # clone discourse
