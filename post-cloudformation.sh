@@ -21,7 +21,7 @@ chmod 600 /mnt/xvdh/swap.1
 # move docker (and the container) to the larger volume
 
 systemctl stop docker
-mkdir -v /mnt/xvdh/var/lib
+mkdir -v -p /mnt/xvdh/var/lib
 mv /var/lib/docker /mnt/xvdh/var/lib/
 ln -s -v /mnt/xvdh/var/lib/docker/ /var/lib/docker
 systemctl start docker
