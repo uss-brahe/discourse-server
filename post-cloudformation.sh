@@ -3,6 +3,9 @@
 # install dependencies
 apt install docker git -y
 
+# uninstall apache because it uses port 80
+sudo apt remove apache2 -y --purge
+
 # mount new volume
 mkdir -p /mnt/xvdh
 mkfs -t ext4 /dev/nvme1n1
