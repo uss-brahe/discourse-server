@@ -178,8 +178,8 @@ Resources:
           ToPort: 80
         - CidrIp: 0.0.0.0/0
           IpProtocol: tcp
-          FromPort: 25
-          ToPort: 25
+          FromPort: 587
+          ToPort: 587
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 7d49a618-4dcb-46d7-be99-83832e3312ae
