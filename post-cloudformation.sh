@@ -25,6 +25,7 @@ mkdir -v -p /mnt/xvdh/var/lib
 mv /var/lib/docker /mnt/xvdh/var/lib/
 ln -s -v /mnt/xvdh/var/lib/docker/ /var/lib/docker
 systemctl start docker
+systemctl status docker --no-pager
 
 # clone discourse
 git clone https://github.com/discourse/discourse_docker.git /mnt/xvdh/discourse
